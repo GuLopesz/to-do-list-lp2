@@ -1,6 +1,7 @@
 package br.edu.ifsp.todolist.model;
 
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
 
 @Entity
@@ -31,6 +32,7 @@ public class Role {
     public enum Values{
         USER(2L),
         ADMIN(1L);
+
 
         Long roleId;
 
