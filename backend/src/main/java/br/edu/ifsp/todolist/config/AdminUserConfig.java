@@ -56,5 +56,30 @@ public class AdminUserConfig implements CommandLineRunner {
                     userRepository.save(user);
                 }
         );
+
+        var roleUser = roleRepository.findByRoleName(Role.Values.USER.name());
+
+        if(roleUser == null){
+            roleUser = new Role();
+            roleUser.setRoleName(Role.Values.USER.name());
+            roleRepository.save(roleUser);
+        }
+        var userUser = userRepository.findByUsername("user");
+
+        var userRole = roleRepository.findByRoleName(Role.Values.USER.name());
+
+        userUser.ifPresentOrElse(
+                (user) -> {
+                    System.out.println("Usuario ja existe");
+
+                },
+                () -> {
+                    var user = new User();
+                    user.setUsername("user");
+                    user.setPassword(passwordEncoder.encode("123456"));
+                    user.setRoles(Set.of(userRole));
+                    userRepository.save(user);
+                }
+        );
     }
 }

@@ -1,7 +1,7 @@
 package br.edu.ifsp.todolist.model;
 
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +28,7 @@ public class Role {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
 
     public enum Values{
         USER(2L),
