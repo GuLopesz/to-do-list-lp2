@@ -81,11 +81,10 @@ export default function LoginForm() {
                 <Input
                   id="username"
                   type="text"
-                  placeholder="ex: joao.silva"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="bg-gray-700 border-gray-600 text-white focus-visible:ring-offset-gray-800"
+                  className="bg-gray-700 border-gray-600 text-white"
                 />
               </div>
 

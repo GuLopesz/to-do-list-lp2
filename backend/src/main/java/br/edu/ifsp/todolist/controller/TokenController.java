@@ -1,6 +1,4 @@
 package br.edu.ifsp.todolist.controller;
-
-
 import br.edu.ifsp.todolist.controller.dto.LoginRequest;
 import br.edu.ifsp.todolist.controller.dto.LoginResponse;
 import br.edu.ifsp.todolist.repository.UserRepository;

@@ -1,7 +1,4 @@
 package br.edu.ifsp.todolist.model;
-
-
-
 import jakarta.persistence.*;
 
 @Entity
