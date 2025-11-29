@@ -37,7 +37,7 @@ public class TokenController {
          }
 
          var now = Instant.now();
-         var expiresIn = 300L;
+         var expiresIn = 21600L;
 
          var claims = JwtClaimsSet.builder()
                  .issuer("backend")
