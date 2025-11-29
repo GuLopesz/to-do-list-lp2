@@ -22,25 +22,42 @@ export default function RegisterPage() {
   
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Validação simples visual
     if (password !== confirmPassword) {
       alert("As senhas não coincidem!");
       setIsLoading(false);
       return;
     }
 
-    console.log("Cadastro simulado:", { username, password });
-    
-    // Simula delay de rede
-    setTimeout(() => {
+    try {
+      //conexao com o backend
+      const response = await fetch("http://localhost:8080/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        //verifica se o user ja existe
+        throw new Error("Erro ao criar conta. O usuário pode já existir.");
+      }
+
+      //sucesso
+      alert("Conta criada com sucesso!");
+      router.push("/");//redireciona para o login
+
+    } catch (error) {
+      console.error(error);
+      alert("Erro no cadastro. Tente novamente.");
+    } finally {
       setIsLoading(false);
-      // Redireciona para o login após cadastrar
-      router.push("/login"); 
-    }, 2000);
+    }
   };
 
   return (
@@ -56,20 +73,19 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
 
-              {/*campo de username*/}
               <div className="grid gap-2">
                 <Label htmlFor="username" className="text-gray-200">Usuário</Label>
                 <Input
                   id="username"
                   type="text"
+                  placeholder="ex: joao.silva"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="bg-gray-700 border-gray-600 text-white"
+                  className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400 focus-visible:ring-offset-gray-800"
                 />
               </div>
 
-              {/*campo de senha*/}
               <div className="grid gap-2">
                 <Label htmlFor="password" className="text-gray-200">Senha</Label>
                 <Input 
@@ -82,7 +98,6 @@ export default function RegisterPage() {
                 />
               </div>
 
-              {/*campo de confirmar senha*/}
               <div className="grid gap-2">
                 <Label htmlFor="confirmPassword" className="text-gray-200">Confirmar senha</Label>
                 <Input 
